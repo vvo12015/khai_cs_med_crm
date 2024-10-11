@@ -1,0 +1,12 @@
+# Вимкнення тимчасових файлів Visual Studio
+.vs/
+*.vscode/
+*.user
+*.suo
+
+# Вимкнення папок `bin` і `obj`
+bin/
+obj/
+
+# Файли налаштувань пакунків
+packages/
