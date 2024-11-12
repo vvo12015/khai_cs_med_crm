@@ -40,20 +40,6 @@ namespace MedCRM
             this.hiddenNote = hiddenNote;
         }
 
-        public void ProvideService(string service, double hours)
-        {
-            if (hours <= contractHours)
-            {
-                contractHours -= hours;
-                services.Add(service);
-                Console.WriteLine($"При наданні послуги {service}, було використано {hours} сервісних годин. Залишок годин {contractHours} ");
-            }
-            else
-            {
-                Console.WriteLine("Не достатньо сервісних годин");
-            }
-        }
-
         public override string ToString()
         {
             return $"Type: {type}, Name: {name}, EDRPOU: {edrpou ?? "N/A"}, RegistrationDate: {registrationDate:dd.MM.yyyy}, " +
