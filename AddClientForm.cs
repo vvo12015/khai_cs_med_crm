@@ -56,15 +56,15 @@ namespace MedCRM
         private void btnSave_Click(object sender, EventArgs e)
         {
 
-            Client? CreatedClient = null;
+            Client? createdClient = null;
 
-            if (checkFields(out CreatedClient))
+            if (checkFields(out createdClient))
             {
-                if (CreatedClient is not null)
+                if (createdClient is not null)
                 {
-                    Debug.WriteLine(CreatedClient);
+                    Debug.WriteLine(createdClient);
 
-                    this.Client = CreatedClient;
+                    this.Client = createdClient;
 
                     DialogResult = DialogResult.OK;
 

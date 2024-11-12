@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace MedCRM
 {
-    public partial class HourForm : UserControl
+    public partial class HourForm : Form
     {
         private static Client? currentClient;
         public HourForm()
@@ -26,7 +26,7 @@ namespace MedCRM
                 if (MainForm.Clients.Count > selectIndex)
                 {
                     currentClient = MainForm.Clients[selectIndex];
-                    labelBalance.Text = currentClient.hours.ToString();
+                    showHourBalance();
                 }
             }
         }
@@ -37,6 +37,7 @@ namespace MedCRM
             if (currentClient is not null)
             {
                 currentClient.UseHours(hours);
+                showHourBalance();
             }
         }
 
@@ -46,6 +47,32 @@ namespace MedCRM
             if (currentClient is not null)
             {
                 currentClient.BuyHours(hours);
+                showHourBalance();
+            }
+        }
+
+        private void showHourBalance()
+        {
+            if (currentClient is not null)
+            {
+                labelBalance.Text = currentClient.hours.ToString();
+                if (currentClient.hours < 0)
+                {
+                    labelBalance.ForeColor = Color.Red;
+                }
+                else
+                {
+                    labelBalance.ForeColor = Color.Black;
+                }
+            }
+        }
+
+        private void refreshContractButton_Click(object sender, EventArgs e)
+        {
+            if (currentClient is not null)
+            {
+                currentClient.hours += currentClient.contractHours;
+                showHourBalance();
             }
         }
 
@@ -62,6 +89,28 @@ namespace MedCRM
                 MessageBox.Show($"Не коректно введена кількість");
                 return 0;
             }
+        }
+
+        private void HourForm_Shown(object sender, EventArgs e)
+        {
+            listBox1.Items.Clear();
+
+            foreach (Client client in MainForm.Clients)
+            {
+                listBox1.Items.Add(client.name);
+            }
+
+            if (MainForm.Clients.Count > 0)
+            {
+                currentClient = MainForm.Clients[0];
+                showHourBalance();
+            }
+
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

@@ -39,7 +39,6 @@ namespace MedCRM
                 addClientForm.showBtnForSave();
                 if (addClientForm.ShowDialog() == DialogResult.OK && addClientForm.Client is not null)
                 {
-                
                     Clients.Add(addClientForm.Client);
                     MessageBox.Show(" л≥Їнт усп≥шно доданий.");
                 }
@@ -78,6 +77,7 @@ namespace MedCRM
         private void btnDemonstrateBehavior_Click(object sender, EventArgs e)
         {
             HourForm hourForm = new HourForm();
+            hourForm.ShowDialog();
         }
 
         private void btnExit_Click(object sender, EventArgs e)

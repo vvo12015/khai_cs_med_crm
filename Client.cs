@@ -12,9 +12,8 @@ namespace MedCRM
         public string name;
         public string edrpou;
         public DateTime registrationDate;
-        public double contractHours;//години на рік за контрактом
-        public double hours;//поточний баланс годин
-        public double hourPrice;//ціна за годину
+        public double contractHours;
+        public double hours;
         public CompanySize size;
 
         public string ownerName;
@@ -32,6 +31,7 @@ namespace MedCRM
             this.edrpou = edrpou;
             this.registrationDate = registrationDate;
             this.contractHours = contractHours;
+            this.hours = contractHours;
             this.size = size;
             this.ownerName = ownerName;
             this.ownerPhone = ownerPhone;

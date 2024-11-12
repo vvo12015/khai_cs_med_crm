@@ -31,11 +31,12 @@
             listBox1 = new ListBox();
             label1 = new Label();
             label2 = new Label();
-            button1 = new Button();
-            button2 = new Button();
-            button4 = new Button();
+            useButton = new Button();
+            addButton = new Button();
+            exitButton = new Button();
             labelBalance = new Label();
             hoursMaskedTextBox = new MaskedTextBox();
+            refreshContractButton = new Button();
             SuspendLayout();
             // 
             // listBox1
@@ -44,7 +45,7 @@
             listBox1.ItemHeight = 15;
             listBox1.Location = new Point(16, 42);
             listBox1.Name = "listBox1";
-            listBox1.Size = new Size(120, 169);
+            listBox1.Size = new Size(132, 184);
             listBox1.TabIndex = 0;
             listBox1.SelectedIndexChanged += listBox1_SelectedIndexChanged;
             // 
@@ -59,41 +60,42 @@
             // 
             // label2
             // 
-            label2.AutoSize = true;
             label2.Location = new Point(167, 15);
             label2.Name = "label2";
-            label2.Size = new Size(81, 15);
+            label2.Size = new Size(116, 15);
             label2.TabIndex = 3;
             label2.Text = "Баланс годин";
+            label2.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // button1
             // 
-            button1.Location = new Point(167, 124);
-            button1.Name = "button1";
-            button1.Size = new Size(118, 25);
-            button1.TabIndex = 4;
-            button1.Text = "Використати";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            useButton.Location = new Point(167, 139);
+            useButton.Name = "button1";
+            useButton.Size = new Size(118, 25);
+            useButton.TabIndex = 4;
+            useButton.Text = "Використати";
+            useButton.UseVisualStyleBackColor = true;
+            useButton.Click += button1_Click;
             // 
             // button2
             // 
-            button2.Location = new Point(167, 155);
-            button2.Name = "button2";
-            button2.Size = new Size(118, 25);
-            button2.TabIndex = 5;
-            button2.Text = "Додати";
-            button2.UseVisualStyleBackColor = true;
-            button2.Click += button2_Click;
+            addButton.Location = new Point(166, 170);
+            addButton.Name = "button2";
+            addButton.Size = new Size(118, 25);
+            addButton.TabIndex = 5;
+            addButton.Text = "Додати";
+            addButton.UseVisualStyleBackColor = true;
+            addButton.Click += button2_Click;
             // 
             // button4
             // 
-            button4.Location = new Point(167, 186);
-            button4.Name = "button4";
-            button4.Size = new Size(118, 25);
-            button4.TabIndex = 6;
-            button4.Text = "Вихід";
-            button4.UseVisualStyleBackColor = true;
+            exitButton.Location = new Point(166, 201);
+            exitButton.Name = "button4";
+            exitButton.Size = new Size(118, 25);
+            exitButton.TabIndex = 6;
+            exitButton.Text = "Вихід";
+            exitButton.UseVisualStyleBackColor = true;
+            exitButton.Click += button4_Click;
             // 
             // labelBalance
             // 
@@ -107,27 +109,39 @@
             // 
             // hoursMaskedTextBox
             // 
-            hoursMaskedTextBox.Location = new Point(167, 95);
+            hoursMaskedTextBox.Location = new Point(167, 79);
             hoursMaskedTextBox.Mask = "0000.00";
             hoursMaskedTextBox.Name = "hoursMaskedTextBox";
             hoursMaskedTextBox.Size = new Size(118, 23);
             hoursMaskedTextBox.TabIndex = 8;
             hoursMaskedTextBox.TextAlign = HorizontalAlignment.Center;
             // 
+            // button3
+            // 
+            refreshContractButton.Location = new Point(167, 108);
+            refreshContractButton.Name = "button3";
+            refreshContractButton.Size = new Size(118, 25);
+            refreshContractButton.TabIndex = 4;
+            refreshContractButton.Text = "Оновити контракт";
+            refreshContractButton.UseVisualStyleBackColor = true;
+            refreshContractButton.Click += refreshContractButton_Click;
+            // 
             // HourForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(296, 257);
             Controls.Add(hoursMaskedTextBox);
             Controls.Add(labelBalance);
-            Controls.Add(button4);
-            Controls.Add(button2);
-            Controls.Add(button1);
+            Controls.Add(exitButton);
+            Controls.Add(addButton);
+            Controls.Add(refreshContractButton);
+            Controls.Add(useButton);
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(listBox1);
             Name = "HourForm";
-            Size = new Size(312, 270);
+            Shown += HourForm_Shown;
             ResumeLayout(false);
             PerformLayout();
         }
@@ -137,10 +151,11 @@
         private ListBox listBox1;
         private Label label1;
         private Label label2;
-        private Button button1;
-        private Button button2;
-        private Button button4;
+        private Button useButton;
+        private Button addButton;
+        private Button exitButton;
         private Label labelBalance;
         private MaskedTextBox hoursMaskedTextBox;
+        private Button refreshContractButton;
     }
 }
