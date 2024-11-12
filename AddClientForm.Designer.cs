@@ -40,30 +40,32 @@
             label2 = new Label();
             txtOwnerPhone = new MaskedTextBox();
             dateTimePicker1 = new DateTimePicker();
+            btnDelete = new Button();
             SuspendLayout();
             // 
             // lblClientType
             // 
             lblClientType.AutoSize = true;
-            lblClientType.Location = new Point(12, 15);
+            lblClientType.Location = new Point(12, 45);
             lblClientType.Name = "lblClientType";
-            lblClientType.Size = new Size(68, 15);
+            lblClientType.Size = new Size(70, 15);
             lblClientType.TabIndex = 0;
-            lblClientType.Text = "Client Type:";
+            lblClientType.Text = "Тип клієнта";
             // 
             // cmbClientType
             // 
+            cmbClientType.DisplayMember = "Value";
             cmbClientType.FormattingEnabled = true;
-            cmbClientType.Items.AddRange(new object[] { "ФОП", "Юридична особа" });
-            cmbClientType.Location = new Point(130, 12);
+            cmbClientType.Location = new Point(130, 45);
             cmbClientType.Name = "cmbClientType";
             cmbClientType.Size = new Size(200, 23);
-            cmbClientType.TabIndex = 1;
+            cmbClientType.TabIndex = 2;
+            cmbClientType.ValueMember = "Key";
             // 
             // lblName
             // 
             lblName.AutoSize = true;
-            lblName.Location = new Point(12, 45);
+            lblName.Location = new Point(12, 15);
             lblName.Name = "lblName";
             lblName.Size = new Size(42, 15);
             lblName.TabIndex = 2;
@@ -71,10 +73,10 @@
             // 
             // txtName
             // 
-            txtName.Location = new Point(130, 42);
+            txtName.Location = new Point(130, 15);
             txtName.Name = "txtName";
             txtName.Size = new Size(200, 23);
-            txtName.TabIndex = 3;
+            txtName.TabIndex = 1;
             // 
             // lblEDRPOU
             // 
@@ -90,7 +92,7 @@
             txtEDRPOU.Location = new Point(130, 72);
             txtEDRPOU.Name = "txtEDRPOU";
             txtEDRPOU.Size = new Size(200, 23);
-            txtEDRPOU.TabIndex = 5;
+            txtEDRPOU.TabIndex = 3;
             // 
             // lblRegistrationDate
             // 
@@ -115,7 +117,7 @@
             txtContractHours.Location = new Point(130, 135);
             txtContractHours.Name = "txtContractHours";
             txtContractHours.Size = new Size(200, 23);
-            txtContractHours.TabIndex = 9;
+            txtContractHours.TabIndex = 5;
             // 
             // lblCompanySize
             // 
@@ -128,12 +130,13 @@
             // 
             // cmbCompanySize
             // 
+            cmbCompanySize.DisplayMember = "Value";
             cmbCompanySize.FormattingEnabled = true;
-            cmbCompanySize.Items.AddRange(new object[] { "Мала", "Середня", "Велика" });
             cmbCompanySize.Location = new Point(130, 171);
             cmbCompanySize.Name = "cmbCompanySize";
             cmbCompanySize.Size = new Size(200, 23);
-            cmbCompanySize.TabIndex = 11;
+            cmbCompanySize.TabIndex = 6;
+            cmbCompanySize.ValueMember = "Key";
             // 
             // lblOwnerName
             // 
@@ -149,7 +152,7 @@
             txtOwnerName.Location = new Point(130, 201);
             txtOwnerName.Name = "txtOwnerName";
             txtOwnerName.Size = new Size(200, 23);
-            txtOwnerName.TabIndex = 13;
+            txtOwnerName.TabIndex = 7;
             // 
             // lblOwnerPhone
             // 
@@ -174,14 +177,14 @@
             txtOwnerEmail.Location = new Point(130, 275);
             txtOwnerEmail.Name = "txtOwnerEmail";
             txtOwnerEmail.Size = new Size(200, 23);
-            txtOwnerEmail.TabIndex = 17;
+            txtOwnerEmail.TabIndex = 9;
             // 
             // btnSave
             // 
             btnSave.Location = new Point(130, 313);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(80, 30);
-            btnSave.TabIndex = 18;
+            btnSave.TabIndex = 10;
             btnSave.Text = "Зберегти";
             btnSave.UseVisualStyleBackColor = true;
             btnSave.Click += btnSave_Click;
@@ -191,7 +194,7 @@
             btnCancel.Location = new Point(250, 313);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(80, 30);
-            btnCancel.TabIndex = 19;
+            btnCancel.TabIndex = 11;
             btnCancel.Text = "Відмінити";
             btnCancel.UseVisualStyleBackColor = true;
             btnCancel.Click += btnCancel_Click;
@@ -201,7 +204,7 @@
             btnFind.Location = new Point(130, 313);
             btnFind.Name = "btnFind";
             btnFind.Size = new Size(80, 30);
-            btnFind.TabIndex = 20;
+            btnFind.TabIndex = 10;
             btnFind.Text = "Знайти";
             btnFind.UseVisualStyleBackColor = true;
             btnFind.Visible = false;
@@ -231,22 +234,33 @@
             txtOwnerPhone.Mask = "+38\\0(00)-000-00-00";
             txtOwnerPhone.Name = "txtOwnerPhone";
             txtOwnerPhone.Size = new Size(200, 23);
-            txtOwnerPhone.TabIndex = 21;
+            txtOwnerPhone.TabIndex = 8;
             // 
             // dateTimePicker1
             // 
             dateTimePicker1.Location = new Point(130, 105);
+            dateTimePicker1.MaxDate = new DateTime(2024, 11, 9, 7, 4, 12, 51);
+            dateTimePicker1.MinDate = new DateTime(1900, 1, 1, 0, 0, 0, 0);
             dateTimePicker1.Name = "dateTimePicker1";
             dateTimePicker1.Size = new Size(200, 23);
-            dateTimePicker1.TabIndex = 22;
-            dateTimePicker1.MaxDate = DateTime.Now;
+            dateTimePicker1.TabIndex = 4;
+            dateTimePicker1.Value = new DateTime(2024, 11, 9, 7, 4, 12, 51);
+            // 
+            // btnDelete
+            // 
+            btnDelete.Location = new Point(130, 313);
+            btnDelete.Name = "btnDelete";
+            btnDelete.Size = new Size(80, 30);
+            btnDelete.TabIndex = 17;
+            btnDelete.Text = "Видалити";
+            btnDelete.UseVisualStyleBackColor = true;
             // 
             // AddClientForm
             // 
-            ClientSize = new Size(380, 387);
+            ClientSize = new Size(346, 387);
+            Controls.Add(btnDelete);
             Controls.Add(dateTimePicker1);
             Controls.Add(txtOwnerPhone);
-            Controls.Add(btnFind);
             Controls.Add(btnSave);
             Controls.Add(btnCancel);
             Controls.Add(txtOwnerEmail);
@@ -267,6 +281,7 @@
             Controls.Add(lblName);
             Controls.Add(cmbClientType);
             Controls.Add(lblClientType);
+            Controls.Add(btnFind);
             Name = "AddClientForm";
             Text = "Додати нового клієнта";
             ResumeLayout(false);
@@ -298,5 +313,6 @@
         private Label label2;
         private MaskedTextBox txtOwnerPhone;
         private DateTimePicker dateTimePicker1;
+        private Button btnDelete;
     }
 }

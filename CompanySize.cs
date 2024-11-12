@@ -8,6 +8,7 @@ namespace MedCRM
 {
     public enum CompanySize
     {
+        UNKNOWN,
         Мала,
         Середня,
         Велика

@@ -1,18 +1,20 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace MedCRM
 {
 
     public class Client
     {
-
+        private const int TotalWidth = 10;
         public ClientType type;
         public string name;
         public string edrpou;
         public DateTime registrationDate;
-        public double contractHours;
-        public double hourPrice;
-        public double sum;
+        public double contractHours;//години на рік за контрактом
+        public double hours;//поточний баланс годин
+        public double hourPrice;//ціна за годину
         public CompanySize size;
 
         public string ownerName;
@@ -52,37 +54,74 @@ namespace MedCRM
             }
         }
 
-        public void Display()
+        public override string ToString()
         {
-            Console.WriteLine($"Type: {type}, Name: {name}, EDRPOU: {edrpou ?? "N/A"}, RegistrationDate: {registrationDate:dd.MM.yyyy}, " +
-                              $"ContractHours: {contractHours}, Size: {size}, Owner: {ownerName}, Phone: {ownerPhone}, Email: {ownerEmail}");
+            return $"Type: {type}, Name: {name}, EDRPOU: {edrpou ?? "N/A"}, RegistrationDate: {registrationDate:dd.MM.yyyy}, " +
+                   $"ContractHours: {contractHours}, Size: {size}, Owner: {ownerName}, Phone: {ownerPhone}, Email: {ownerEmail}";
         }
 
-        public void ShowServices()
+        public List<string> ToDisplayValues()
         {
-            Console.WriteLine($"Послуги, які виконалися у клієнта {name}");
-            for (int i = 0; i < services.Count; i++)
+            List<String> result = new List<string>();
+
+            result.Add(type.ToString());
+            result.Add(name);
+            result.Add(edrpou);
+            result.Add(registrationDate.ToString("dd.MM.yyyy"));
+            result.Add(contractHours.ToString());
+            result.Add(size.ToString());
+            result.Add(ownerName);
+            result.Add(ownerPhone.ToString());
+            result.Add(ownerEmail.ToString());
+
+            return result;
+        }
+
+        public static List<string> ToDisplayNames()
+        {
+            List<String> result = new List<string>();
+
+            result.Add("Тип клієнта");
+            result.Add("Назва");
+            result.Add("ЄДРПОУ/ІПН");
+            result.Add("Дата реєстр.");
+            result.Add("Кількість год");
+            result.Add("Розмір компанії");
+            result.Add("ПІБ власн.");
+            result.Add("Телефон власн.");
+            result.Add("Email власн.");
+
+            return result;
+
+        }
+
+        public void SetContractHours(double contractHours)//встановлюємо кількість сервісних годин в договорі
+        {
+            this.contractHours = contractHours;
+        }
+
+        public void BuyHours(double purchasedServiceHours)//купляємо години
+        {
+            this.hours += purchasedServiceHours;
+        }
+
+        public void UseHours(double purchasedServiceHours)//користуємо години
+        {
+            this.hours -= purchasedServiceHours;
+        }
+
+        public void RefreshContract()//зазвичай робиться на початку періоду, якщо поточних годин більше 0 тоді встановлюємо contractHours
+            //якщо баланс годин негативний тоді просто додаємо contractHours
+        {
+            if (this.contractHours > 0)
             {
-                Console.WriteLine(services[i]);
+                this.hours = this.contractHours;
+            }
+            else
+            {
+                this.hours += contractHours;
             }
         }
-
-        public void AddContractHours(double contractHoursToAdd)
-        {
-            this.contractHours += contractHoursToAdd;
-        }
-
-        public void AddSum(double sumToAdd)
-        {
-            this.sum += sumToAdd;
-        }
-
-        public void buyHours(double purchasedServiceHours)
-        {
-            this.contractHours += purchasedServiceHours;
-            this.sum += (purchasedServiceHours * hourPrice);
-        }
-
         public void ShowHiddenNote()
         {
             Console.WriteLine($"Hidden note: {hiddenNote}");

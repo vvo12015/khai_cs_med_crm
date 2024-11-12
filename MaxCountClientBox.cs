@@ -32,5 +32,11 @@ namespace MedCRM
             this.Close();
         }
 
+        public void txtInput_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter){
+                btnOK_Click (sender, e);
+            }
+        }
     }
 }

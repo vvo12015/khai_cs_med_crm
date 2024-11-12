@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MedCRM;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,7 @@ namespace MedCRM
 {
     public enum ClientType
     {
+        UNKNOWN,
         ФОП,
         Юридична_особа
     }

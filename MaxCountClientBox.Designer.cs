@@ -1,4 +1,5 @@
-﻿namespace MedCRM
+﻿
+namespace MedCRM
 {
     partial class MaxCountClientBox
     {
@@ -28,7 +29,7 @@
             lblPrompt.AutoSize = true;
             lblPrompt.Location = new Point(12, 15);
             lblPrompt.Name = "lblPrompt";
-            lblPrompt.Size = new Size(211, 15);
+            lblPrompt.Size = new Size(224, 15);
             lblPrompt.TabIndex = 0;
             lblPrompt.Text = "Введіть максимальну кількість клієнтів:";
             // 
@@ -38,6 +39,7 @@
             txtInput.Name = "txtInput";
             txtInput.Size = new Size(250, 23);
             txtInput.TabIndex = 1;
+            txtInput.KeyDown += txtInput_KeyDown;
             // 
             // btnOK
             // 

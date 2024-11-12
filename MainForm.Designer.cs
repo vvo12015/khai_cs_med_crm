@@ -96,6 +96,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            AutoSize = true;
             ClientSize = new Size(219, 328);
             Controls.Add(btnExit);
             Controls.Add(btnDemonstrateBehavior);
@@ -103,9 +104,11 @@
             Controls.Add(btnFindClient);
             Controls.Add(btnDisplayClients);
             Controls.Add(btnAddClient);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            MaximizeBox = false;
             Name = "MainForm";
-            Text = "Main Menu";
-            Load += this.MainForm_Load;
+            Text = "MedCrm";
+            KeyDown += MainForm_KeyDown;
             ResumeLayout(false);
         }
 
