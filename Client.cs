@@ -21,7 +21,6 @@ namespace MedCRM
         public string ownerEmail;
 
         private string hiddenNote;
-        private List<string> services = new List<string>();
 
         public Client(ClientType type, string name, string edrpou, DateTime registrationDate, double contractHours, CompanySize size, 
             string ownerName, string ownerPhone, string ownerEmail, string hiddenNote)
