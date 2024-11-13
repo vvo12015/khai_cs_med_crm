@@ -1,5 +1,7 @@
 ﻿using System.Text.RegularExpressions;
 using System.Diagnostics;
+using System.Drawing;
+using System.Xml.Linq;
 
 
 namespace MedCRM
@@ -180,141 +182,60 @@ namespace MedCRM
         public bool checkFields(out Client? client)
         {
             client = null;
-
-            if (string.IsNullOrWhiteSpace(txtName.Text))
+            try
             {
-                MessageBox.Show("Назва пуста", "Перевірка введення", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
+                ClientType? clientType = null;
+                CompanySize? companySize = null;
 
-            if (txtName.Text.Length < 5)
-            {
-                MessageBox.Show("Назва містить менше 5 символів.", "Перевірка введення", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
+                if (cmbClientType.SelectedItem == null)
+                {
+                    MessageBox.Show("Будь-ласка виберіть тип клієнта.", "Перевірка введення", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+                else
+                {
+                    clientType = ((KeyValuePair<ClientType, string>)cmbClientType.SelectedItem).Key;
+                }
 
-            if (!Char.IsLetter(txtName.Text[0]))
-            {
-                MessageBox.Show("Назва повинна починатися з букви.", "Перевірка введення", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
+                if (!double.TryParse(txtContractHours.Text, out double contractHours))
+                {
+                    MessageBox.Show("Кількість годин повинна бути дійсним числом(формату 0,00).", "Перевірка введення", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
 
-            ClientType? clientType = null;
+                if (dateTimePicker1.Value < new DateTime())
+                {
+                    MessageBox.Show("Будь ласка введіть дату реєстації.", "Перевірка введення", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
 
-            if (cmbClientType.SelectedItem == null)
-            {
-                MessageBox.Show("Будь-ласка виберіть тип клієнта.", "Перевірка введення", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-            else
-            {
-                clientType = ((KeyValuePair<ClientType, string>)cmbClientType.SelectedItem).Key;
-            }
+                if (cmbCompanySize.SelectedItem == null)
+                {
+                    MessageBox.Show("Будь-ласка виберіть розмір компанії.", "Перевірка введення", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+                else
+                {
+                    companySize = ((KeyValuePair<CompanySize, string>)cmbCompanySize.SelectedItem).Key;
+                }
 
-            if (string.IsNullOrWhiteSpace(txtEDRPOU.Text))
-            {
-                MessageBox.Show("ЄДПРОУ/ІПН не може бути пустим.", "Перевірка введення", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-
-            if (txtEDRPOU.Text.Length < 10)
-            {
-                MessageBox.Show("ЄДПРОУ/ІПН повинен бути не менше 10 символів", "Перевірка введення", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-
-            if (dateTimePicker1.Value < new DateTime())
-            {
-                MessageBox.Show("Будь ласка введіть дату реєстації.", "Перевірка введення", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-
-            if (!double.TryParse(txtContractHours.Text, out double contractHours))
-            {
-                MessageBox.Show("Кількість годин повинна бути дійсним числом(формату 0,00).", "Перевірка введення", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-
-            if (contractHours == 0)
-            {
-                MessageBox.Show("Кількість годин не може дорівнювати 0.", "Перевірка введення", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-
-            if (contractHours < 0)
-            {
-                MessageBox.Show("Кількість годин повинна бути позитивним числом.", "Перевірка введення", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-
-            if (contractHours > 100)
-            {
-                MessageBox.Show("Кількість годин не має перевищувати 100.", "Перевірка введення", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-
-            CompanySize? companySize = null;
-
-            if (cmbCompanySize.SelectedItem == null)
-            {
-                MessageBox.Show("Будь-ласка виберіть розмір компанії.", "Перевірка введення", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-            else
-            {
-                companySize = ((KeyValuePair<CompanySize, string>)cmbCompanySize.SelectedItem).Key;
-            }
-
-            if (string.IsNullOrWhiteSpace(txtOwnerName.Text))
-            {
-                MessageBox.Show("ПІБ власника не може бути пустим полем.", "Перевірка введення", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-
-            if (txtOwnerName.Text.Length < 5)
-            {
-                MessageBox.Show("ПІБ містить менше 5 символів.", "Перевірка введення", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-
-            if (!Char.IsLetter(txtOwnerName.Text[0]))
-            {
-                MessageBox.Show("ПІБ власника повинна починатися з букви.", "Перевірка введення", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-
-
-            if (!txtOwnerPhone.MaskFull)
-            {
-                MessageBox.Show("Номер телефону повинен відповідати формату +380(11)-111-11-11.", "Перевірка введення", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-
-            if (string.IsNullOrWhiteSpace(txtOwnerEmail.Text))
-            {
-                MessageBox.Show("Введіть email.", "Перевірка введення", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-            string emailPattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
-
-            if (!Regex.IsMatch(txtOwnerEmail.Text, emailPattern))
-            {
-                MessageBox.Show("Недопустимий тип email.", "Перевірка введення", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-
-            client = new Client(
-                    clientType.GetValueOrDefault(ClientType.ФОП),
+                client = new Client(
+                    clientType.GetValueOrDefault(ClientType.UNKNOWN),
                     txtName.Text,
                     txtEDRPOU.Text,
                     dateTimePicker1.Value,
                     contractHours,
-                    companySize.GetValueOrDefault(CompanySize.Мала),
+                    companySize.GetValueOrDefault(CompanySize.UNKNOWN),
                     txtOwnerName.Text,
                     txtOwnerPhone.Text,
                     txtOwnerEmail.Text,
-                    "normal"
-                );
+                    "normal");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Перевірка введення", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
 
             return true;
         }

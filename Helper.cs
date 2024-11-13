@@ -14,98 +14,98 @@ namespace MedCRM
             List<Client> preparedList;
             List<Client> resultList = new List<Client>(MainForm.Clients);
 
-            if (client.type != ClientType.UNKNOWN)
+            if (client.Type != ClientType.UNKNOWN)
             {
                 preparedList = new List<Client>(resultList);
                 resultList.Clear();
 
                 foreach (Client fClient in preparedList)
                 {
-                    if (fClient.type == client.type)
+                    if (fClient.Type == client.Type)
                     {
                         resultList.Add(fClient);
                     }
                 }
             }
 
-            if (client.name.Length > 0)
+            if (client.Name.Length > 0)
             {
                 preparedList = new List<Client>(resultList);
                 resultList.Clear();
 
                 foreach (Client fClient in preparedList)
                 {
-                    if (fClient.name.Equals(client.name))
+                    if (fClient.Name.Equals(client.Name))
                     {
                         resultList.Add(fClient);
                     }
                 }
             }
 
-            if (client.edrpou.Length > 0)
+            if (client.EDRPOU.Length > 0)
             {
                 preparedList = new List<Client>(resultList);
                 resultList.Clear();
 
                 foreach (Client fClient in preparedList)
                 {
-                    if (fClient.edrpou.Equals(client.edrpou))
+                    if (fClient.EDRPOU.Equals(client.EDRPOU))
                     {
                         resultList.Add(fClient);
                     }
                 }
             }
 
-            if (client.contractHours > 0)
+            if (client.ContractHours > 0)
             {
                 preparedList = new List<Client>(resultList);
                 resultList.Clear();
 
                 foreach (Client fClient in preparedList)
                 {
-                    if (fClient.contractHours.Equals(client.contractHours))
+                    if (fClient.ContractHours.Equals(client.ContractHours))
                     {
                         resultList.Add(fClient);
                     }
                 }
             }
 
-            if (client.size != CompanySize.UNKNOWN)
+            if (client.Size != CompanySize.UNKNOWN)
             {
                 preparedList = new List<Client>(resultList);
                 resultList.Clear();
 
                 foreach (Client fClient in preparedList)
                 {
-                    if (fClient.size == client.size)
+                    if (fClient.Size == client.Size)
                     {
                         resultList.Add(fClient);
                     }
                 }
             }
 
-            if (client.ownerName.Length > 0)
+            if (client.OwnerName.Length > 0)
             {
                 preparedList = new List<Client>(resultList);
                 resultList.Clear();
 
                 foreach (Client fClient in preparedList)
                 {
-                    if (fClient.ownerName.Equals(client.ownerName))
+                    if (fClient.OwnerName.Equals(client.OwnerName))
                     {
                         resultList.Add(fClient);
                     }
                 }
             }
 
-            if (client.ownerPhone.Length == 18)
+            if (client.OwnerPhone.Length == 18)
             {
                 preparedList = new List<Client>(resultList);
                 resultList.Clear();
 
                 foreach (Client fClient in preparedList)
                 {
-                    if (fClient.ownerPhone.Equals(client.ownerPhone))
+                    if (fClient.OwnerPhone.Equals(client.OwnerPhone))
                     {
                         resultList.Add(fClient);
                     }
@@ -113,14 +113,14 @@ namespace MedCRM
             }
 
 
-            if (client.ownerEmail.Length > 0)
+            if (client.OwnerEmail.Length > 0)
             {
                 preparedList = new List<Client>(resultList);
                 resultList.Clear();
 
                 foreach (Client fClient in preparedList)
                 {
-                    if (fClient.ownerEmail.Equals(client.ownerEmail))
+                    if (fClient.OwnerEmail.Equals(client.OwnerEmail))
                     {
                         resultList.Add(fClient);
                     }
