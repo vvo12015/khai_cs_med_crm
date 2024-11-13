@@ -46,7 +46,7 @@ namespace MedCRM
             double hours = getHours();
             if (currentClient is not null)
             {
-                currentClient.BuyHours(hours);
+                currentClient.AddHours(hours);
                 showHourBalance();
             }
         }
@@ -55,8 +55,8 @@ namespace MedCRM
         {
             if (currentClient is not null)
             {
-                labelBalance.Text = currentClient.hours.ToString();
-                if (currentClient.hours < 0)
+                labelBalance.Text = currentClient.Hours.ToString();
+                if (currentClient.Hours < 0)
                 {
                     labelBalance.ForeColor = Color.Red;
                 }
@@ -71,7 +71,7 @@ namespace MedCRM
         {
             if (currentClient is not null)
             {
-                currentClient.hours += currentClient.contractHours;
+                currentClient.AddHours(currentClient.ContractHours.GetValueOrDefault(0));
                 showHourBalance();
             }
         }
@@ -97,7 +97,7 @@ namespace MedCRM
 
             foreach (Client client in MainForm.Clients)
             {
-                listBox1.Items.Add(client.name);
+                listBox1.Items.Add(client.NameForList);
             }
 
             if (MainForm.Clients.Count > 0)
