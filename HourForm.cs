@@ -18,7 +18,7 @@ namespace MedCRM
             InitializeComponent();
         }
 
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void ListBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             int selectIndex = listBox1.SelectedIndex;
             if (selectIndex != -1)
@@ -26,32 +26,32 @@ namespace MedCRM
                 if (MainForm.Clients.Count > selectIndex)
                 {
                     currentClient = MainForm.Clients[selectIndex];
-                    showHourBalance();
+                    ShowHourBalance();
                 }
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void UseButton_Click(object sender, EventArgs e)
         {
-            double hours = getHours();
-            if (currentClient is not null)
+            double hours = GetHours();
+            if (currentClient is not null && hours > 0)
             {
                 currentClient.UseHours(hours);
-                showHourBalance();
+                ShowHourBalance();
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void AddButton_Click(object sender, EventArgs e)
         {
-            double hours = getHours();
-            if (currentClient is not null)
+            double hours = GetHours();
+            if (currentClient is not null && hours > 0)
             {
                 currentClient.AddHours(hours);
-                showHourBalance();
+                ShowHourBalance();
             }
         }
 
-        private void showHourBalance()
+        private void ShowHourBalance()
         {
             if (currentClient is not null)
             {
@@ -67,27 +67,37 @@ namespace MedCRM
             }
         }
 
-        private void refreshContractButton_Click(object sender, EventArgs e)
+        private void RefreshContractButton_Click(object sender, EventArgs e)
         {
+            double hours = GetHours();
+
             if (currentClient is not null)
             {
-                currentClient.AddHours(currentClient.ContractHours.GetValueOrDefault(0));
-                showHourBalance();
+                if (hours >= 0)
+                {
+                    currentClient.RefreshContract(hours);
+                }
+                else
+                {
+                    currentClient.RefreshContract();
+                }
+                ShowHourBalance();
             }
         }
 
-        private double getHours()
+        private double GetHours()
         {
             double hours;
 
-            if (double.TryParse(hoursMaskedTextBox.Text, out hours))
+            if (double.TryParse(hoursMaskedTextBox.Text, out hours) ||
+                    hours < 0)
             {
                 return hours;
             }
             else
             {
                 MessageBox.Show($"Не коректно введена кількість");
-                return 0;
+                return -1;
             }
         }
 
@@ -103,12 +113,12 @@ namespace MedCRM
             if (MainForm.Clients.Count > 0)
             {
                 currentClient = MainForm.Clients[0];
-                showHourBalance();
+                ShowHourBalance();
             }
 
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void CloseButton_Click(object sender, EventArgs e)
         {
             this.Close();
         }

@@ -47,7 +47,7 @@
             listBox1.Name = "listBox1";
             listBox1.Size = new Size(132, 184);
             listBox1.TabIndex = 0;
-            listBox1.SelectedIndexChanged += listBox1_SelectedIndexChanged;
+            listBox1.SelectedIndexChanged += ListBox1_SelectedIndexChanged;
             // 
             // label1
             // 
@@ -75,7 +75,7 @@
             useButton.TabIndex = 4;
             useButton.Text = "Використати";
             useButton.UseVisualStyleBackColor = true;
-            useButton.Click += button1_Click;
+            useButton.Click += UseButton_Click;
             // 
             // button2
             // 
@@ -85,7 +85,7 @@
             addButton.TabIndex = 5;
             addButton.Text = "Додати";
             addButton.UseVisualStyleBackColor = true;
-            addButton.Click += button2_Click;
+            addButton.Click += AddButton_Click;
             // 
             // button4
             // 
@@ -95,7 +95,7 @@
             exitButton.TabIndex = 6;
             exitButton.Text = "Вихід";
             exitButton.UseVisualStyleBackColor = true;
-            exitButton.Click += button4_Click;
+            exitButton.Click += CloseButton_Click;
             // 
             // labelBalance
             // 
@@ -124,7 +124,7 @@
             refreshContractButton.TabIndex = 4;
             refreshContractButton.Text = "Оновити контракт";
             refreshContractButton.UseVisualStyleBackColor = true;
-            refreshContractButton.Click += refreshContractButton_Click;
+            refreshContractButton.Click += RefreshContractButton_Click;
             // 
             // HourForm
             // 

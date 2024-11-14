@@ -73,7 +73,7 @@ namespace MedCRM
                     this.Close();
                 }
             }
-           
+
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -106,7 +106,7 @@ namespace MedCRM
         {
 
             List<Client> resultList = FindedClientFromForm();
-                ShowClient showClient = new ShowClient();
+            ShowClient showClient = new ShowClient();
             ShowClient.Clients = resultList;
 
             showClient.ShowDialog();
@@ -178,17 +178,32 @@ namespace MedCRM
                     companySize = ((KeyValuePair<CompanySize, string>)cmbCompanySize.SelectedItem).Key;
                 }
 
-                client = new Client(
-                    clientType.GetValueOrDefault(ClientType.UNKNOWN),
-                    txtName.Text,
-                    txtEDRPOU.Text,
-                    dateTimePicker1.Value,
-                    contractHours,
-                    companySize.GetValueOrDefault(CompanySize.UNKNOWN),
-                    txtOwnerName.Text,
-                    txtOwnerPhone.Text,
-                    txtOwnerEmail.Text,
-                    "normal");
+                if (ShowOwnerInfoCheckBox.Checked)
+                {
+
+                    client = new Client(
+                        clientType.GetValueOrDefault(ClientType.UNKNOWN),
+                        txtName.Text,
+                        txtEDRPOU.Text,
+                        dateTimePicker1.Value,
+                        contractHours,
+                        companySize.GetValueOrDefault(CompanySize.UNKNOWN),
+                        txtOwnerName.Text,
+                        txtOwnerPhone.Text,
+                        txtOwnerEmail.Text,
+                        "normal");
+                }
+                else
+                {
+                    client = new Client(
+                        clientType.GetValueOrDefault(ClientType.UNKNOWN),
+                        txtName.Text,
+                        txtEDRPOU.Text,
+                        dateTimePicker1.Value,
+                        contractHours,
+                        companySize.GetValueOrDefault(CompanySize.UNKNOWN),
+                        "normal");
+                }
             }
             catch (Exception ex)
             {
@@ -333,6 +348,18 @@ namespace MedCRM
             }
 
             return resultList;
+        }
+
+        private void ShowOwnerInfoCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (ShowOwnerInfoCheckBox.Checked)
+            {
+                OwnerInfoGroupBox.Enabled = true;
+            }
+            else
+            {
+                OwnerInfoGroupBox.Enabled = false;
+            }
         }
     }
 }

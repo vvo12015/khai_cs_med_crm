@@ -151,21 +151,32 @@ namespace MedCRM
 
         private string _hiddenNote = "normal";
 
-        public Client(ClientType type, string name, string edrpou, DateTime registrationDate, double contractHours, CompanySize size, 
-            string ownerName, string ownerPhone, string ownerEmail, string hiddenNote)
+        public Client()
         {
-            this.Type = type;
-            this.Name = name;
-            this.EDRPOU = edrpou;
+
+        }
+
+        public Client(ClientType type, string? name, string? edrpou, DateTime registrationDate, double contractHours, CompanySize size, string hiddenNote)
+        {
+            Type = type;
+            Name = name!;
+            EDRPOU = edrpou!;
             this.RegistrationDate = registrationDate;
             this.ContractHours = contractHours;
             this.Hours = contractHours;
             this.Size = size;
+            this._hiddenNote = hiddenNote;
+            this._ownerEmail = "";
+            this._ownerPhone = "";
+            this._ownerName = "";
+
+        }
+
+        public Client(ClientType type, string name, string edrpou, DateTime registrationDate, double contractHours, CompanySize size, 
+            string ownerName, string ownerPhone, string ownerEmail, string hiddenNote):this(type, name, edrpou, registrationDate, contractHours, size, hiddenNote) { 
             this.OwnerName = ownerName;
             this.OwnerPhone = ownerPhone;
             this.OwnerEmail = ownerEmail;
-
-            this._hiddenNote = hiddenNote;
         }
 
         public override string ToString()
@@ -219,7 +230,7 @@ namespace MedCRM
             this.Hours -= purchasedServiceHours;
         }
 
-        public void RefreshContract()//зазвичай робиться на початку періоду, якщо поточних годин більше 0 тоді встановлюємо contractHours
+        public void RefreshContract()//зазвичай робиться на початку періоду, якщо поточних годин більше 0 тоді hours присвоюємо contractHours
             //якщо баланс годин негативний тоді просто додаємо contractHours
         {
             if (this.ContractHours > 0)
@@ -231,6 +242,15 @@ namespace MedCRM
                 this.Hours += ContractHours.GetValueOrDefault(0);
             }
         }
+
+        public void RefreshContract(double newContractHours)//зазвичай робиться на початку періоду, встановлюємо нові contractHours, якщо поточних годин більше 0 тоді встановлюємо contractHours
+                                     //якщо баланс годин негативний тоді просто додаємо contractHours
+        {
+            this.ContractHours = newContractHours;
+
+            RefreshContract();
+        }
+
         public void ShowHiddenNote()
         {
             Console.WriteLine($"Hidden note: {_hiddenNote}");
