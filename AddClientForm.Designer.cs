@@ -254,6 +254,7 @@
             btnDelete.TabIndex = 17;
             btnDelete.Text = "Видалити";
             btnDelete.UseVisualStyleBackColor = true;
+            btnDelete.Click += btnDelete_Click;
             // 
             // AddClientForm
             // 
