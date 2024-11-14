@@ -104,37 +104,9 @@ namespace MedCRM
 
         private void btnFind_Click(object sender, EventArgs e)
         {
-            CompanySize? companySize = null;
-            ClientType? clientType = null;
 
-            if (cmbCompanySize.SelectedItem != null)
-            {
-                companySize = ((KeyValuePair<CompanySize, string>)cmbCompanySize.SelectedItem).Key;
-            }
-
-            if (cmbClientType.SelectedItem != null)
-            {
-                clientType = ((KeyValuePair<ClientType, string>)cmbClientType.SelectedItem).Key;
-            }
-
-            double.TryParse(txtContractHours.Text, out double contractHours);
-
-            Client client = new Client(
-                    clientType.GetValueOrDefault(ClientType.UNKNOWN),
-                    txtName.Text,
-                    txtEDRPOU.Text,
-                    dateTimePicker1.Value,
-                    contractHours,
-                    companySize.GetValueOrDefault(CompanySize.UNKNOWN),
-                    txtOwnerName.Text,
-                    txtOwnerPhone.Text,
-                    txtOwnerEmail.Text,
-                    "normal"
-                );
-
-            List<Client> resultList = Helper.FindedClientFromForm(client);
-
-            ShowClient showClient = new ShowClient();
+            List<Client> resultList = FindedClientFromForm();
+                ShowClient showClient = new ShowClient();
             ShowClient.Clients = resultList;
 
             showClient.ShowDialog();
@@ -157,20 +129,7 @@ namespace MedCRM
 
             double.TryParse(txtContractHours.Text, out double contractHours);
 
-            Client client = new Client(
-                    clientType.GetValueOrDefault(ClientType.UNKNOWN),
-                    txtName.Text,
-                    txtEDRPOU.Text,
-                    dateTimePicker1.Value,
-                    contractHours,
-                    companySize.GetValueOrDefault(CompanySize.UNKNOWN),
-                    txtOwnerName.Text,
-                    txtOwnerPhone.Text,
-                    txtOwnerEmail.Text,
-                    "normal"
-                );
-
-            MainForm.Clients.RemoveAll(Helper.FindedClientFromForm(client).Contains);
+            MainForm.Clients.RemoveAll(FindedClientFromForm().Contains);
 
             ShowClient showClient = new ShowClient();
 
@@ -238,6 +197,142 @@ namespace MedCRM
             }
 
             return true;
+        }
+
+        public List<Client> FindedClientFromForm()
+        {
+            CompanySize? companySize = null;
+            ClientType? clientType = null;
+
+            if (cmbCompanySize.SelectedItem != null)
+            {
+                companySize = ((KeyValuePair<CompanySize, string>)cmbCompanySize.SelectedItem).Key;
+            }
+
+            if (cmbClientType.SelectedItem != null)
+            {
+                clientType = ((KeyValuePair<ClientType, string>)cmbClientType.SelectedItem).Key;
+            }
+
+            double.TryParse(txtContractHours.Text, out double contractHours);
+
+            List<Client> preparedList;
+            List<Client> resultList = new List<Client>(MainForm.Clients);
+
+            if (clientType != null)
+            {
+                preparedList = new List<Client>(resultList);
+                resultList.Clear();
+
+                foreach (Client fClient in preparedList)
+                {
+                    if (fClient.Type == clientType)
+                    {
+                        resultList.Add(fClient);
+                    }
+                }
+            }
+
+            if (txtName.Text.Length > 0)
+            {
+                preparedList = new List<Client>(resultList);
+                resultList.Clear();
+
+                foreach (Client fClient in preparedList)
+                {
+                    if (fClient.Name.Equals(txtName.Text))
+                    {
+                        resultList.Add(fClient);
+                    }
+                }
+            }
+
+            if (txtEDRPOU.Text.Length > 0)
+            {
+                preparedList = new List<Client>(resultList);
+                resultList.Clear();
+
+                foreach (Client fClient in preparedList)
+                {
+                    if (fClient.EDRPOU.Equals(txtEDRPOU.Text))
+                    {
+                        resultList.Add(fClient);
+                    }
+                }
+            }
+
+            if (contractHours > 0)
+            {
+                preparedList = new List<Client>(resultList);
+                resultList.Clear();
+
+                foreach (Client fClient in preparedList)
+                {
+                    if (fClient.ContractHours.Equals(contractHours))
+                    {
+                        resultList.Add(fClient);
+                    }
+                }
+            }
+
+            if (companySize != null)
+            {
+                preparedList = new List<Client>(resultList);
+                resultList.Clear();
+
+                foreach (Client fClient in preparedList)
+                {
+                    if (fClient.Size == companySize)
+                    {
+                        resultList.Add(fClient);
+                    }
+                }
+            }
+
+            if (txtOwnerName.Text.Length > 0)
+            {
+                preparedList = new List<Client>(resultList);
+                resultList.Clear();
+
+                foreach (Client fClient in preparedList)
+                {
+                    if (fClient.OwnerName.Equals(txtOwnerName.Text))
+                    {
+                        resultList.Add(fClient);
+                    }
+                }
+            }
+
+            if (txtOwnerPhone.Text.Length == 18)
+            {
+                preparedList = new List<Client>(resultList);
+                resultList.Clear();
+
+                foreach (Client fClient in preparedList)
+                {
+                    if (fClient.OwnerPhone.Equals(txtOwnerPhone.Text))
+                    {
+                        resultList.Add(fClient);
+                    }
+                }
+            }
+
+
+            if (txtOwnerEmail.Text.Length > 0)
+            {
+                preparedList = new List<Client>(resultList);
+                resultList.Clear();
+
+                foreach (Client fClient in preparedList)
+                {
+                    if (fClient.OwnerEmail.Equals(txtOwnerEmail.Text))
+                    {
+                        resultList.Add(fClient);
+                    }
+                }
+            }
+
+            return resultList;
         }
     }
 }
