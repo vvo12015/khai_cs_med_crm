@@ -242,6 +242,7 @@
             btnDelete.TabIndex = 32;
             btnDelete.Text = "Видалити";
             btnDelete.UseVisualStyleBackColor = true;
+            btnDelete.Click += btnDelete_Click;
             // 
             // btnSave
             // 
@@ -251,6 +252,7 @@
             btnSave.TabIndex = 29;
             btnSave.Text = "Зберегти";
             btnSave.UseVisualStyleBackColor = true;
+            btnSave.Click += btnSave_Click;
             // 
             // btnCancel
             // 
@@ -271,6 +273,7 @@
             btnFind.Text = "Знайти";
             btnFind.UseVisualStyleBackColor = true;
             btnFind.Visible = false;
+            btnFind.Click += btnFind_Click;
             // 
             // ShowOwnerInfoCheckBox
             // 

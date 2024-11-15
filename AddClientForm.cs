@@ -129,7 +129,11 @@ namespace MedCRM
 
             double.TryParse(txtContractHours.Text, out double contractHours);
 
-            MainForm.Clients.RemoveAll(FindedClientFromForm().Contains);
+            foreach(Client client in FindedClientFromForm())
+            {
+                MainForm.Clients.Remove(client);
+                Client.RemoveObject();
+            }
 
             ShowClient showClient = new ShowClient();
 
